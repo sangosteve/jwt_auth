@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
 const axios = require("axios").default;
-const Login = ({ setIsAuth }) => {
+const Login = ({ setIsAuth, setUser }) => {
   const [state, setState] = useState();
   const handleChange = (e) => {
     setState({ ...state, [e.target.name]: e.target.value });
@@ -16,8 +16,8 @@ const Login = ({ setIsAuth }) => {
         ...state,
       });
 
-      localStorage.setItem("access_token", response.data.token);
       setIsAuth(true);
+      setUser(response.data.user);
     } catch (e) {
       console.log("Error", e);
     }
