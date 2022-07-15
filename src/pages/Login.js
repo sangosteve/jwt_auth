@@ -12,9 +12,12 @@ const Login = ({ setIsAuth, setUser }) => {
     try {
       e.preventDefault();
       console.log(state);
-      const response = await axios.post("http://localhost:8000/login", {
-        ...state,
-      });
+      const response = await axios.post(
+        "https://app-test-pg-api.herokuapp.com/login",
+        {
+          ...state,
+        }
+      );
 
       setIsAuth(true);
       setUser(response.data.user);
