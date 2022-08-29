@@ -1,13 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
 const axios = require("axios").default;
 const Login = ({ setIsAuth, setUser }) => {
   const [state, setState] = useState();
+  const [users, setUsers] = useState([]);
   const handleChange = (e) => {
     setState({ ...state, [e.target.name]: e.target.value });
   };
 
+  const getUsers = async () => {
+    try {
+      const res = await axios.get(
+        "https://app-test-pg-api.herokuapp.com/users"
+      );
+      setUsers(res.data);
+      console.log(window.location.host);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+  useEffect(() => {
+    getUsers();
+  }, []);
   const onSubmit = async (e) => {
     try {
       e.preventDefault();
